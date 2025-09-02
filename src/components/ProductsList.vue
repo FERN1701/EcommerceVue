@@ -10,8 +10,7 @@
                     <h5>{{ product.name }}</h5>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                    
-                    <h6>${{ product.price }}</h6><button class="btn btn-danger"><i class="fi fi-sr-shopping-cart-add"></i></button>
+                    <h6>${{ product.price.toFixed(2) }}</h6><button class="btn btn-danger"><i class="fi fi-sr-shopping-cart-add"></i></button>
                 </div>
             </div>
         </div>
@@ -79,3 +78,14 @@ export default {
     }
 }
 </script>
+<style>
+.card {
+    transition: transform 0.2s;
+    border: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+</style>
