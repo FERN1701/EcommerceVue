@@ -8,6 +8,7 @@
             </div>
         </div>
     </section>
+    <AboutUs />
     <section class="containe py-5">
         <div class="container-fluid">
             <div class="d-flex justify-content-center align-items-center text-center flex-column" style="width: 80%; margin: auto;">
@@ -25,11 +26,13 @@
 <script>
 import ProductsList from  '../components/ProductsList.vue'
 import Footer from '../components/Footer.vue'
+import AboutUs from '@/components/AboutUs.vue';
 export default {
     name: 'HomeView',
     components: {
         ProductsList,
-        Footer
+        Footer,
+        AboutUs
     }
 }
 </script>
