@@ -5,15 +5,20 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur maiores cum dolore veritatis rem! Alias tempora libero eius voluptatibus! Alias, laudantium officiis. Ab aliquam quia deserunt sint, cumque expedita eius?</p>
         </div>
     </section>
+    <AboutUs />
+    <Team />
     <Footer />
 </template>
 <script>
 import Footer from '@/components/Footer.vue'
-
+import AboutUs from '@/components/AboutUs.vue';
+import Team from '@/components/Team.vue';
 export default {
     name: 'AboutView',
     components: {
-        Footer
+        Footer,
+        AboutUs,
+        Team
     }
 }
 </script>

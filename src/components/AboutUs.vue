@@ -5,11 +5,11 @@
             <div class="col-sm-6 d-flex align-items-center">
                 <div class="row">
                     <div class="col-6 d-flex flex-column justify-content-center align-items-center text-center">
-                        <h1 class="fw-bold number_spacing" style="font-size: 100px;">04</h1>
+                        <h1 class="fw-bold number_spacing" style="font-size: 150px;">04</h1>
                         <h3 class="spacing">In Service</h3>
                     </div>
                     <div class="col-6 d-flex flex-column justify-content-center align-items-center ">
-                        <h3>Of dedicated delivery services</h3>
+                        <h2>Of dedicated delivery services</h2>
                     </div>
                     <div class="col-12">
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta ut, voluptates nihil magni qui dignissimos at accusantium accusamus repellat pariatur architecto asperiores obcaecati. Ipsa laudantium, sequi doloribus impedit perspiciatis eligendi?</p>
@@ -18,13 +18,13 @@
             </div>
             <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-6">
                         <div class="d-flex flex-column justify-column-center align-items-center ">
                             <img :src="package1" alt="" class="img-fluid m-3" width="180px">
                             <img :src="package2" alt="" class="img-fluid" width="180px">
                         </div>
                     </div>
-                    <div class="col-sm-6 d-flex justify-content-center align-items-center">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
                         <img :src="package3" alt="" class="img-fluid" width="180px">
                     </div>
                 </div>
