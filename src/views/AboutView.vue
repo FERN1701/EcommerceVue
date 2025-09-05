@@ -7,18 +7,67 @@
     </section>
     <AboutUs />
     <Team />
+    <Supported :companies="companies" />
     <Footer />
 </template>
 <script>
 import Footer from '@/components/Footer.vue'
 import AboutUs from '@/components/AboutUs.vue';
 import Team from '@/components/Team.vue';
+import Supported from '../components/SupportedCompany.vue';
 export default {
     name: 'AboutView',
     components: {
         Footer,
         AboutUs,
-        Team
+        Team,
+        Supported   
+    },
+    data () {
+        return {
+            companies: [
+                {
+                    id: 1,
+                    name: 'AWS',
+                    logo: 'devicon-amazonwebservices-line-wordmark colored'
+                },
+                {
+                    id: 2,
+                    name: 'Azure',
+                    logo: 'devicon-azure-plain-wordmark colored'
+                },
+                {
+                    id: 3,
+                    name: 'Anaconda',
+                    logo: 'devicon-anaconda-original-wordmark colored'
+                },
+                {
+                    id: 4,
+                    name: 'Anys',
+                    logo: 'devicon-ansys-plain-wordmark colored'
+                },
+                {
+                    id: 5,
+                    name: 'Apex',
+                    logo: 'devicon-apex-original colored'
+                },
+                {
+                    id: 8,
+                    name: 'Arch linux',
+                    logo: 'devicon-archlinux-plain-wordmark colored'
+                },
+                {
+                    id: 7,
+                    name: 'cassandra',
+                    logo: 'devicon-cassandra-plain-wordmark colored'
+                },
+                {
+                    id: 8,
+                    name: 'Firebird',
+                    logo: 'devicon-firebird-plain colored'
+                }
+            ]
+        }
     }
 }
 </script>
