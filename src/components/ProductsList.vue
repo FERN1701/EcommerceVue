@@ -3,7 +3,7 @@
     <div class="col-6 col-md-2 g-4" v-for="(product, id) in products" :key="id">
         <div class="card">
             <div class="card-header d-flex justify-content-center align-items-center">
-                <img :src="product.itemImage" alt="" class="img-fluid" width="40px">
+                <img :src="product.itemImage" alt="" class="img-fluid" width="80px">
             </div>
             <div class="card-body">
                 <div class="d-flex flex-column">

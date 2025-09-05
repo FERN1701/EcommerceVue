@@ -59,12 +59,12 @@ export default {
                 {
                     id: 7,
                     name: 'cassandra',
-                    logo: 'devicon-cassandra-plain-wordmark colored'
+                    logo: 'devicon-nginx-original colore'
                 },
                 {
                     id: 8,
                     name: 'Firebird',
-                    logo: 'devicon-firebird-plain colored'
+                    logo: 'devicon-nextjs-original-wordmark colored'
                 }
             ]
         }
