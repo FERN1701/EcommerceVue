@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="container-fluid">
-             <Carousel v-bind="carouselConfig"  :items-to-show="4" :items-to-scroll="4"  :infinite="true" :wrap-around="true" class="my-4">
+             <Carousel v-bind="carouselConfig" :items-to-show="4" :items-to-scroll="4"  :infinite="true" :wrap-around="true" class="my-4">
                 <Slide v-for="(company, id) in companies" :key="id">
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <i :class="company.logo" style="font-size: 100px;"></i>
