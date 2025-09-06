@@ -1,4 +1,5 @@
 <template>
+    <Nav />
     <section class="small_banner">
         <div class="container">
             <h1>Products</h1>
@@ -16,11 +17,13 @@
 <script>
 import ProductsList from '@/components/ProductsList.vue';
 import Footer from '@/components/Footer.vue';
+import Nav from '../components/PublicNav.vue'
 export default {
     name: 'ProductView',
     components: {
         ProductsList,
-        Footer
+        Footer,
+        Nav
     }
 }
 </script>

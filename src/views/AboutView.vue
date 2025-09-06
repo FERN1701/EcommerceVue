@@ -1,4 +1,5 @@
 <template>
+    <Nav />
     <section class="banner_small">
         <div class="container py-5">
             <h1>About Shoppe</h1>
@@ -15,13 +16,15 @@ import Footer from '@/components/Footer.vue'
 import AboutUs from '@/components/AboutUs.vue';
 import Team from '@/components/Team.vue';
 import Supported from '../components/SupportedCompany.vue';
+import Nav from '../components/PublicNav.vue'
 export default {
     name: 'AboutView',
     components: {
         Footer,
         AboutUs,
         Team,
-        Supported   
+        Supported,
+        Nav   
     },
     data () {
         return {

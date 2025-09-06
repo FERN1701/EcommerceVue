@@ -1,4 +1,5 @@
 <template>
+    <Nav />
     <section class=" banner">
         <div class="container-fluid">
             <div class="d-flex justify-content-center align-items-center flex-column" style="height: 80vh;">
@@ -35,12 +36,14 @@ import ProductsList from  '../components/ProductsList.vue'
 import Footer from '../components/Footer.vue'
 import AboutUs from '@/components/AboutUs.vue';
 import delivery from '../assets/package/delivery.png'
+import Nav from '../components/PublicNav.vue'
 export default {
     name: 'HomeView',
     components: {
         ProductsList,
         Footer,
-        AboutUs
+        AboutUs,
+        Nav
     },
     data () {
         return {
