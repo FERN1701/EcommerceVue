@@ -10,7 +10,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row d-flex align-items-center">
-                                    <div class="col-sm-4"><h1>04</h1></div>
+                                    <div class="col-sm-4"><h1>{{ecomproducts.length}}</h1></div>
                                     <div class="col-sm-8"><h4><i class="fi fi-sr-box-open-full text-success"></i> Products</h4></div>
                                 </div>
                             </div>
@@ -54,6 +54,7 @@
 import AdminNav from '@/components/administrator/AdminNav.vue';
 import Team from '@/components/Team.vue'
 import Products from '@/views/administrator/Products.vue'
+import { onMounted, ref } from 'vue'
 export default {
     name: 'AdminLayout',
     components: {
@@ -61,6 +62,19 @@ export default {
         Team,
 		Products,
 	},
+    setup () {
+        const ecomproducts = ref([])
+        const newecomproducts = ref({ name: '', price: '', description: '' })
+
+         onMounted(() => {
+        const stored = localStorage.getItem('myProducts')
+        if (stored) ecomproducts.value = JSON.parse(stored)
+        })
+        return{
+            ecomproducts
+        }
+    }
+
 }
 </script>
 <style>
