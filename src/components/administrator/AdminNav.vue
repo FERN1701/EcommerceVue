@@ -11,10 +11,10 @@
             <RouterLink to="/administrator" class="nav-link active" aria-current="page">Home</RouterLink>
         </li>
         <li class="nav-item">
-          <RouterLink to="/features" class="nav-link">Features</RouterLink>
+          <RouterLink to="/administrator/products" class="nav-link">Products</RouterLink>
         </li>
         <li class="nav-item">
-          <RouterLink to="/pricing" class="nav-link">Pricing</RouterLink>
+          <RouterLink to="/administrator/teams" class="nav-link">Teams</RouterLink>
         </li>
       </ul>
       <span class="navbar-text">
