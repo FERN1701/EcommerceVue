@@ -24,7 +24,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <h2>08</h2>
+                                        <h2>{{ ecomteams.length }}</h2>
                                     </div>
                                     <div class="col-8">
                                         <h3><i class="fi fi-sr-hands-together text-success"></i> Teams</h3>
@@ -102,13 +102,22 @@ export default {
     setup () {
         const ecomproducts = ref([])
         const newecomproducts = ref({ name: '', price: '', description: '' })
+        const ecomteams = ref([])
 
-         onMounted(() => {
-        const stored = localStorage.getItem('myProducts')
-        if (stored) ecomproducts.value = JSON.parse(stored)
+        onMounted(() => {
+            const stored = localStorage.getItem('myProducts')
+            if (stored) {
+                ecomproducts.value = JSON.parse(stored)
+            }
+
+            const TeamStored = localStorage.getItem('my-teams')
+            if (TeamStored){
+                ecomteams.value = JSON.parse(TeamStored) 
+            }
         })
         return{
-            ecomproducts
+            ecomproducts,
+            ecomteams,
         }
     }
     
