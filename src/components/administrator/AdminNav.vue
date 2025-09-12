@@ -16,6 +16,9 @@
         <li class="nav-item">
           <RouterLink to="/administrator/teams" class="nav-link">Teams</RouterLink>
         </li>
+        <li class="nav-item">
+          <RouterLink to="/administrator/teams" class="nav-link">Companies</RouterLink>
+        </li>
       </ul>
       <span class="navbar-text">
         <RouterLink to="/" class="nav-link">Logout</RouterLink>
@@ -25,6 +28,8 @@
 </nav>
 </template>
 <script>
+import Team from '@/components/Team.vue'
+
 export default {
     name: 'AdminNav'
 }

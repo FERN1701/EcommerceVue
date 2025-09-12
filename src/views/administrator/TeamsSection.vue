@@ -4,8 +4,13 @@
     <div class="row py-5">
         <div class="col-sm-4">
             <form v-if="editTeamIndex !== null" @submit.prevent="UpdateTeamDetails" >
-                <p>Now on Editing mode</p>
+                <p>Now on Editing mode: <br>
+                    Account: {{updateTeam.name}}</p>
                 <div class="row">
+                     <div class="col-sm-12">
+                        <div class="label">Profile</div>
+                        <input type="file" accept="image/*" @change="handleEditImageUpload" class="form-control">
+                    </div>
                     <div class="col-sm-6">
                         <div class="label">Full Name</div>
                         <input type="text" v-model="updateTeam.name" id="" class="form-control">
@@ -22,6 +27,10 @@
             <form v-else @submit.prevent ="addTeams" >
                 <p>Please to make sure to fill all required items below.</p>
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="label">Profile</div>
+                        <input type="file" accept="image/*" @change="handleImageUpload" class="form-control">
+                    </div>
                     <div class="col-sm-6">
                         <div class="label">Full Name</div>
                         <input type="text" v-model="newteams.name" id="" class="form-control">
@@ -45,7 +54,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-4">
-                                    <img  alt="" class="img-fluid">
+                                    <img :src="team.image" alt="" class="img-fluid">
                                 </div>
                                 <div class="col-8">
                                     <h5>{{team.name}}</h5>
@@ -92,9 +101,9 @@ export default {
 
     setup () {
         const ecomteams = ref([])
-        const newteams = ref({ name: '', position: ''})
+        const newteams = ref({ name: '', position: '', image: null})
         const editTeamIndex = ref(null)
-        const updateTeam = ref({ name: '', position: ''})
+        const updateTeam = ref({ name: '', position: '', image: null})
 
         onMounted(() => {
             const storedTeams = localStorage.getItem('my-teams')
@@ -107,12 +116,30 @@ export default {
         (val) => localStorage.setItem('my-teams', JSON.stringify(val)),
         { deep: true }
         )
+         const handleImageUpload = (event) => {
+            const file = event.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => {
+            newteams.value.image = reader.result
+            }
+            reader.readAsDataURL(file)
+        }
 
+        const handleEditImageUpload = (event) => {
+            const file = event.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => {
+            updateTeam.value.image = reader.result
+            }
+            reader.readAsDataURL(file)
+        }
         const addTeams = () => {
             if(newteams.value.name.trim()){
                 ecomteams.value.push({...newteams.value})
                 console.log('Added teams succefully')
-                newteams.value = { name: '', position: ''}
+                newteams.value = { name: '', position: '', image: ''}
             }
         }
 
@@ -126,7 +153,7 @@ export default {
                 ecomteams.value[editTeamIndex.value] = { ...updateTeam.value}
                 console.log('updated')
                 editTeamIndex.value = null
-                updateTeam.value = {name: '', position: ''}
+                updateTeam.value = {name: '', position: '', image: ''}
             }
         }
      
@@ -138,6 +165,8 @@ export default {
             deleteTeam,
             TeamIndexEdit,
             UpdateTeamDetails,
+            handleImageUpload,
+            handleEditImageUpload,
             newteams,
             ecomteams,
             editTeamIndex,
