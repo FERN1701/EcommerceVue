@@ -17,7 +17,7 @@
           <RouterLink to="/administrator/teams" class="nav-link">Teams</RouterLink>
         </li>
         <li class="nav-item">
-          <RouterLink to="/administrator/teams" class="nav-link">Companies</RouterLink>
+          <RouterLink to="/administrator/company" class="nav-link">Companies</RouterLink>
         </li>
       </ul>
       <span class="navbar-text">
