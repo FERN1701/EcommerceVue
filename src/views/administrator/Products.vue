@@ -7,6 +7,12 @@
             <form v-if="editProductIndex !==null" @submit.prevent="updateProduct">
                 <p>Now editing</p>
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="productName">Product Image</label>
+                            <input type="file" class="form-control" @change="handleEditImageUpload" >
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="productName">Product Name</label>
@@ -33,7 +39,35 @@
             </form>
             <form v-else @submit.prevent="addProducts">
                 <p>Please fill out all areas of forms</p>
+                <div class="py-2" v-if="newecomproducts.name || newecomproducts.image || newecomproducts.price">
+                    <div class="card py">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img :src="newecomproducts.image" alt="" class="img-fluid" width="100px">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="d-flex justify-content-between">
+                                    <h6>Product Name : {{newecomproducts.name}}</h6>
+                                    <p>Price: {{newecomproducts.price}}</p>
+                                </div>
+                                <p>Description: <br> {{newecomproducts.description}} <br>
+                                
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                </div>
+                
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="productName">Product Image</label>
+                            <input type="file" class="form-control" @change="handleImageUpload" >
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="productName">Product Name</label>
@@ -78,7 +112,7 @@
                     </tr>
                     <tr v-else v-for="(product, index) in ecomproducts" :key="index">
                         <th scope="row">{{index + 1}}</th>
-                        <td>{{product.name}}</td>
+                        <td> <img :src="product.image" alt="" width="30px"> {{product.name}}</td>
                         <td>{{product.price}}</td>
                         <td class="">
                             <a class="btn btn-sm btn-primary me-2" @click="editProducts(index)">Edit</a>
@@ -98,9 +132,9 @@ export default {
     name: 'Products',
     setup () {
         const ecomproducts = ref([])
-        const newecomproducts = ref({ name: '', price: '', description: '' })
+        const newecomproducts = ref({ image: '', name: '', price: '', description: '' })
         const editProductIndex = ref(null)
-        const editProjectdetails = ref({name: '', price: '', description: ''})
+        const editProjectdetails = ref({image: '', name: '', price: '', description: ''})
          onMounted(() => {
         const stored = localStorage.getItem('myProducts')
         if (stored) ecomproducts.value = JSON.parse(stored)
@@ -116,9 +150,30 @@ export default {
             if (newecomproducts.value.name.trim()) {
                 ecomproducts.value.push({ ...newecomproducts.value })
                 console.log('Success')
-                newecomproducts.value = { name: '',price: '', description: '' }
+                newecomproducts.value = { image: '', name: '',price: '', description: '' }
             }
-        } 
+        }
+
+        const handleImageUpload = (event) => {
+            const file = event.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => {
+            newecomproducts.value.image = reader.result
+            }
+            reader.readAsDataURL(file)
+        }
+
+        const handleEditImageUpload = (event) => {
+            const file = event.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => {
+            editProjectdetails.value.image = reader.result
+            }
+            reader.readAsDataURL(file)
+        }
+
         const deleteProduct = (index) => {
             ecomproducts.value.splice(index,1)
         }
@@ -133,10 +188,10 @@ export default {
             if(editProductIndex.value !== null){
                 ecomproducts.value[editProductIndex.value] = {...editProjectdetails.value}
                 editProductIndex.value = null
-                editProjectdetails.value = { name: '', price: '', description: ''}
+                editProjectdetails.value = { image: '', name: '', price: '', description: ''}
             }
         }
-        return { ecomproducts,editProductIndex , editProjectdetails, newecomproducts, addProducts,updateProduct, deleteProduct, editProducts}
+        return { handleEditImageUpload, handleImageUpload, ecomproducts,editProductIndex , editProjectdetails, newecomproducts, addProducts,updateProduct, deleteProduct, editProducts}
     }
 }
 </script>

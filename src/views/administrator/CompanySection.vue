@@ -1,4 +1,7 @@
-<template>
+
+	components: {
+		CompanySection,
+	},<template>
     <div class="">
         <h1>Company Section ({{companies.length}})</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in aspernatur illum</p>
@@ -70,6 +73,7 @@
 </template>
 <script>
 import { ref, watch, onMounted} from 'vue'
+import CompanySection from '@/views/administrator/CompanySection.vue'
 export default {
     name: 'CompanySection',
     setup (){
