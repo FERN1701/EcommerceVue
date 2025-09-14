@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch, onMounted } from 'vue'
+
+
 export const useCompanystore = defineStore('usecompany', ()=> {
         const companies = ref([])
         const newCompanies = ref({ icon: '', name: ''})

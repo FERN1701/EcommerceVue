@@ -10,7 +10,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <h2>{{ecomproducts.length}}</h2>
+                                        <h2>{{listproducts.ecomproducts.length}}</h2>
                                     </div>
                                     <div class="col-8">
                                         <h3><i class="fi fi-sr-box-open-full text-success"></i> Products</h3>
@@ -24,7 +24,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <h2>{{ ecomteams.length }}</h2>
+                                        <h2>
+                                            {{ teams.ecomteams.length }}
+                                        </h2>
                                     </div>
                                     <div class="col-8">
                                         <h3><i class="fi fi-sr-hands-together text-success"></i> Teams</h3>
@@ -38,8 +40,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4"><h2>
-                                        {{ companies.length }}
-                                    </h2></div>
+                                        {{ company.companies.length }}
+                                        </h2></div>
                                     <div class="col-8"><h3> <i class="fi fi-sr-building text-success fs-2"></i> Companies</h3></div>
                                 </div>
                             </div>
@@ -95,38 +97,11 @@
     </section>
     
 </template>
-<script>
-import { ref, watch, onMounted } from 'vue'
-export default {
-    name: 'Dashboard',
-    setup () {
-        const ecomproducts = ref([])
-        const newecomproducts = ref({ name: '', price: '', description: '' })
-        const ecomteams = ref([])
-        const companies = ref([])
-
-        onMounted(() => {
-            const stored = localStorage.getItem('myProducts')
-            if (stored) {
-                ecomproducts.value = JSON.parse(stored)
-            }
-
-            const TeamStored = localStorage.getItem('my-teams')
-            if (TeamStored){
-                ecomteams.value = JSON.parse(TeamStored) 
-            }
-
-            const storedCompanies = localStorage.getItem('list-companies')
-            if (storedCompanies){
-                companies.value = JSON.parse(storedCompanies)
-            }
-        })
-        return{
-            ecomproducts,
-            ecomteams,
-            companies
-        }
-    }
-    
-}
+<script setup>
+import { useCompanystore } from '../../stores/companyStore'
+import { useTeamStore } from '../../stores/teamStore'
+import { productStore } from '../../stores/productStore'
+const listproducts = productStore()
+const company = useCompanystore()
+const teams = useTeamStore()
 </script>

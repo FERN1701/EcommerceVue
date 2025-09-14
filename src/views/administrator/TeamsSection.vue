@@ -4,8 +4,15 @@
     <div class="row py-5">
         <div class="col-sm-4">
             <form v-if="teamStore.editTeamIndex !== null" @submit.prevent="teamStore.UpdateTeamDetails" >
-                <p>Now on Editing mode: <br>
-                    Account: {{teamStore.updateTeam.name}}</p>
+                <div class="card py-3 mb-4">
+                    <div class="card-body">
+                        <div v-if="teamStore.updateTeam.image || teamStore.updateTeam.name || teamStore.updateTeam.position" class="col-12 d-flex justify-content-center align-items-center flex-column">
+                                <img :src="teamStore.updateTeam.image" alt="" width="100px">
+                                <h4 class="mt-3">{{teamStore.updateTeam.name}}</h4>
+                                <b>{{teamStore.updateTeam.position}}</b>
+                            </div>
+                    </div>
+                </div>
                 <div class="row">
                      <div class="col-sm-12">
                         <div class="label">Profile</div>
