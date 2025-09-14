@@ -1,43 +1,60 @@
 <template>
-    <h2>Team Management Section ({{ ecomteams.length }})</h2>
+    <h2>Team Management Section ({{ teamStore.ecomteams.length }})</h2>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt molestias doloremque facilis totam inventore voluptatibus quae. Est obcaecati voluptatibus quos officiis, consectetur, reiciendis vero blanditiis earum eum laboriosam architecto similique!</p>
     <div class="row py-5">
         <div class="col-sm-4">
-            <form v-if="editTeamIndex !== null" @submit.prevent="UpdateTeamDetails" >
+            <form v-if="teamStore.editTeamIndex !== null" @submit.prevent="teamStore.UpdateTeamDetails" >
                 <p>Now on Editing mode: <br>
-                    Account: {{updateTeam.name}}</p>
+                    Account: {{teamStore.updateTeam.name}}</p>
                 <div class="row">
                      <div class="col-sm-12">
                         <div class="label">Profile</div>
-                        <input type="file" accept="image/*" @change="handleEditImageUpload" class="form-control">
+                        <input type="file" accept="image/*" @change="teamStore.handleEditImageUpload" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <div class="label">Full Name</div>
-                        <input type="text" v-model="updateTeam.name" id="" class="form-control">
+                        <input type="text" v-model="teamStore.updateTeam.name" id="" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <div class="label">Position</div>
-                        <input type="text" v-model="updateTeam.position" id="" class="form-control">
+                        <input type="text" v-model="teamStore.updateTeam.position" id="" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <button type="submit" class="btn btn-sm btn-primary mt-3">Modify</button>
                     </div>
                 </div>
             </form>
-            <form v-else @submit.prevent ="addTeams" >
+            <form v-else @submit.prevent ="teamStore.addTeams" >
                 <p>Please to make sure to fill all required items below.</p>
+                <div class="py-2 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div v-if="teamStore.newteams.image || teamStore.newteams.name || teamStore.newteams.position" class="col-12 d-flex justify-content-center align-items-center flex-column">
+                                <img v-if="teamStore.newteams.image" :src="teamStore.newteams.image" alt="" width="100px">
+                                <img v-else :src="teamImage" alt="" width="100px">
+                                <h4 class="mt-3">{{teamStore.newteams.name}}</h4>
+                                <b>{{teamStore.newteams.position}}</b>
+                            </div>
+                             <div v-else class="col-12 d-flex justify-content-center align-items-center flex-column">
+                                <img :src="teamImage" alt="" width="100px">
+                                <h4 class="mt-3">Name</h4>
+                                <b>Position</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="label">Profile</div>
-                        <input type="file" accept="image/*" @change="handleImageUpload" class="form-control">
+                        <input type="file" accept="image/*" @change="teamStore.handleImageUpload" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <div class="label">Full Name</div>
-                        <input type="text" v-model="newteams.name" id="" class="form-control">
+                        <input type="text" v-model="teamStore.newteams.name" id="" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <div class="label">Position</div>
-                        <input type="text" v-model="newteams.position" id="" class="form-control">
+                        <input type="text" v-model="teamStore.newteams.position" id="" class="form-control">
                     </div>
                     <div class="col-sm-6">
                         <button type="submit" class="btn btn-sm btn-primary mt-3">submit</button>
@@ -47,9 +64,9 @@
         </div>
         <div class="col-sm-8">
             <p>These are the team found in your company.</p>
-            <div class="py-1" v-if="ecomteams.length != 0">
+            <div class="py-1" v-if="teamStore.ecomteams.length != 0">
                 <Carousel v-bind="carouselConfig" :items-to-show="4" :items-to-scroll="4"  :infinite="true" :wrap-around="true" class="my-4 h-100">
-                <Slide class="me-4" v-for="(team, index) in ecomteams" :key="index">
+                <Slide class="me-4" v-for="(team, index) in teamStore.ecomteams" :key="index">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -63,8 +80,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a @click="TeamIndexEdit(index)" class="btn btn-sm btn-primary me-2">Edit</a>
-                            <a  class="btn btn-sm btn-danger" @click="deleteTeam(index)">Delete</a>
+                            <a @click="teamStore.TeamIndexEdit(index)" class="btn btn-sm btn-primary me-2">Edit</a>
+                            <a  class="btn btn-sm btn-danger" @click="teamStore.deleteTeam(index)">Delete</a>
                         </div>
                     </div>
                 </Slide>
@@ -81,99 +98,14 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
 import 'vue3-carousel/carousel.css'
-import delivery from '../../assets/package/delivery.png'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted, watch } from 'vue'
 import Products from '@/views/administrator/Products.vue'
 import Team from '@/components/Team.vue'
-export default {
-    name: 'TeamsSection',
-    components: {
-        Carousel, 
-        Slide, 
-        Pagination, 
-        Navigation,
-    	Products,
-		Team,
-	},
-
-    setup () {
-        const ecomteams = ref([])
-        const newteams = ref({ name: '', position: '', image: null})
-        const editTeamIndex = ref(null)
-        const updateTeam = ref({ name: '', position: '', image: null})
-
-        onMounted(() => {
-            const storedTeams = localStorage.getItem('my-teams')
-            if(storedTeams){
-                ecomteams.value = JSON.parse(storedTeams)
-            }
-        }),
-        watch(
-        ecomteams,
-        (val) => localStorage.setItem('my-teams', JSON.stringify(val)),
-        { deep: true }
-        )
-         const handleImageUpload = (event) => {
-            const file = event.target.files[0]
-            if (!file) return
-            const reader = new FileReader()
-            reader.onload = () => {
-            newteams.value.image = reader.result
-            }
-            reader.readAsDataURL(file)
-        }
-
-        const handleEditImageUpload = (event) => {
-            const file = event.target.files[0]
-            if (!file) return
-            const reader = new FileReader()
-            reader.onload = () => {
-            updateTeam.value.image = reader.result
-            }
-            reader.readAsDataURL(file)
-        }
-        const addTeams = () => {
-            if(newteams.value.name.trim()){
-                ecomteams.value.push({...newteams.value})
-                console.log('Added teams succefully')
-                newteams.value = { name: '', position: '', image: ''}
-            }
-        }
-
-        const TeamIndexEdit = (index) => {
-            editTeamIndex.value = index
-            updateTeam.value = { ...ecomteams.value[index] }
-        }
-
-        const UpdateTeamDetails = () => {
-            if(editTeamIndex !== null){
-                ecomteams.value[editTeamIndex.value] = { ...updateTeam.value}
-                console.log('updated')
-                editTeamIndex.value = null
-                updateTeam.value = {name: '', position: '', image: ''}
-            }
-        }
-     
-        const deleteTeam = (index) => {
-            ecomteams.value.splice(index, 1)
-        }
-        return{
-            addTeams,
-            deleteTeam,
-            TeamIndexEdit,
-            UpdateTeamDetails,
-            handleImageUpload,
-            handleEditImageUpload,
-            newteams,
-            ecomteams,
-            editTeamIndex,
-            updateTeam
-
-        }
-    }
-}
-
+import { useTeamStore } from '../../stores/teamStore'
+import Imageuser from '../../assets/user/programmer.png'
+const teamStore = useTeamStore()
+const teamImage = ref(Imageuser)
 </script>
